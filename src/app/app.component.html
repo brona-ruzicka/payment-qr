@@ -9,17 +9,26 @@
             <mat-form-field appearance="outline">
               <mat-label>Číslo účtu</mat-label>
               <input formControlName="account" matInput type="text">
+              @if (requestResult?.errors?.fields?.account) {
+                <mat-error>{{requestResult?.errors?.fields?.account}}</mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Částka</mat-label>
               <input formControlName="amount" matInput type="text">
               <span matTextSuffix>&nbsp;Kč</span>
+              @if (requestResult?.errors?.fields?.amount) {
+                <mat-error>{{requestResult?.errors?.fields?.amount}}</mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Poznámka</mat-label>
               <input formControlName="message" matInput type="text">
+              @if (requestResult?.errors?.fields?.message) {
+                <mat-error>{{requestResult?.errors?.fields?.message}}</mat-error>
+              }
             </mat-form-field>
           </form>
         </div>
@@ -38,7 +47,9 @@
                 </div>
               }
               <div class="overlay center">
-                <button mat-raised-button color="primary"><mat-icon>content_copy</mat-icon>Kopírovat</button>
+                <button mat-raised-button color="primary"
+                  (click)="copyImageToClipboard()"
+                ><mat-icon>content_copy</mat-icon>Kopírovat</button>
               </div>
             }
             @default {

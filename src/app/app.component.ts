@@ -7,9 +7,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
+
 
 import {
   catchError,
@@ -49,8 +51,10 @@ fields.forEach((field: Field) => loadingSingleton.errors.fields[field] = null);
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatIconModule,
+
     FlexLayoutModule,
   ],
   templateUrl: './app.component.html',
@@ -67,7 +71,8 @@ export class AppComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private formBuilder: FormBuilder,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
+    private snackBar: MatSnackBar
   ) { }
 
 
@@ -211,7 +216,23 @@ export class AppComponent implements OnInit {
       );
   }
 
+  copyImageToClipboard() {
 
-  protected readonly switchMap = switchMap;
-  protected readonly URL = URL;
+    try {
+      if (!this.requestResult?.blob)
+        throw new Error();
+
+      navigator.clipboard.write([
+        new ClipboardItem({
+          [this.requestResult.blob.type] : this.requestResult.blob
+        })
+      ]);
+    } catch (e) {
+      this.snackBar.open("Kopírování se nezdařilo", undefined, {})
+      return;
+    }
+
+    this.snackBar.open("Zkopírováno do schránky", undefined, {})
+  }
+
 }
