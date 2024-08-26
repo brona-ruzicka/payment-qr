@@ -1,0 +1,48 @@
+.center {
+  display: flex;
+  min-height: 100%;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+
+mat-card {
+  width: 600px;
+}
+
+mat-card-content {
+  padding-top: 8px;
+}
+
+
+mat-form-field {
+  width: 100%;
+}
+
+
+.overlay-origin {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+h3 {
+  max-width: 75%;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+  //opacity: .2;
+}
+
+button {
+  opacity: 0;
+}
